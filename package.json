@@ -1,0 +1,26 @@
+{
+  "name": "fn-switch",
+  "version": "1.0.0",
+  "description": "a better functional javascript replacement for if statement and switch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syarul/fn-switch.git"
+  },
+  "keywords": [
+    "if statement",
+    "switch",
+    "functional javascript",
+    "selector",
+    "array"
+  ],
+  "author": "Shahrul Nizam Selamat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/syarul/fn-switch/issues"
+  },
+  "homepage": "https://github.com/syarul/fn-switch#readme"
+}
