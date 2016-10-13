@@ -28,11 +28,46 @@ fnSwitch(casses, switcher, default)
 - **switcher**: value assign as array index, see sample on how implement this.
 - **default**: the default value to return if all switches failed, optional which will return null.
 
-To get the output of you need to assign prototype chain to the function which availabe as ```switch``` and ```value```.
+To get the output, you need to assign prototype chain to the function which availabe as ```switch``` and ```value```.
 
 ```fnSwitch(casses, switcher, default).switch()``` will cast one of the casses as an array, which allow prototype chaining, and can be extends further with ```Array.prototype.map```(see sample usage). As for ```fnSwitch(casses, switcher, default).value()```will return the actual result.
 
-#### Sample Usage
+#### Sample Usage 1
+```javascript
+'use strict';
+
+const fnSwitch = require('../');
+
+const data = [
+    {first: 'John', last: 'Woods'},
+    {first: 'Harry', last: 'Petty'}
+];
+
+const exdata = [1, 2, 3, 4];
+
+const extraFn = d => `${d[0].first} ${d[0].last}`;
+
+const fallbackFn = d => d.reduce((a, b) => a + b);
+
+const _switch = c => c !== 'error' ? 0 : 1;
+
+const _case = [ 
+    {d: data, fn: extraFn }, 
+    {d: exdata, fn: fallbackFn }
+];
+
+//we assign some predefine selector 'someStringNotError'
+fnSwitch(_case, _switch('someStringNotError'))
+    .switch()
+    .map(_case => {
+        const ln = _case.d.length;
+        const res = _case.fn(_case.d);
+        console.log(`current data length: ${ln}`, `\n${res}`);
+    });
+
+```
+
+#### Sample Usage 2
 
 ```javascript
 'use strict';
@@ -47,7 +82,7 @@ const slice = array => array.slice(Math.max(array.length - 3, 1));
 
 const uniq = [...new Set(slice(arrayFromElem))];
 
-// return unique result, if length is more than 1 we return an empty array
+// return unique result, if length is more than 1 we return null
 const resOne = uniq.length === 1 ? uniq[0] : null;
 
 // the switcher
@@ -66,7 +101,7 @@ const _case = [
 
 const res = fnSwitch(_case, _switch(resOne))
     .switch()
-    .map(f => f.r) // we can write more inside this
+    .map(f => f.r)
     .value();
 
 console.log(res);
