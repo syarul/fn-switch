@@ -36,7 +36,7 @@ To get the output, you need to assign prototype chain to the function which avai
 ```javascript
 'use strict';
 
-const fnSwitch = require('../');
+const fnSwitch = require('fn-switch');
 
 const data = [
     {first: 'John', last: 'Woods'},
@@ -60,8 +60,13 @@ const _case = [
 fnSwitch(_case, _switch('someStringNotError'))
     .switch()
     .map(_case => {
+    
+        //general function
         const ln = _case.d.length;
+
+        //specific function base on selected case
         const res = _case.fn(_case.d);
+
         console.log(`current data length: ${ln}`, `\n${res}`);
     });
 
