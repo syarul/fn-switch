@@ -1,9 +1,13 @@
 # fn-switch
 *a better functional javascript replacement for if statement and switch.*
 
-If you are like me writing if..statement and switch for ages, and most of the time repeating lines of codes over an over, good news is this will ease your burden in a relative terms. 
+**(this module does not use extra dependencies. It's 27 lines of code with spaces, minified size is 2KB)**
 
-## Usage:
+If you are like me writing if..statement (statement branching) and switch for ages, and most of the time repeating lines of codes over an over, good news is this will ease your burden in a relative terms.
+
+# What's the catch?
+
+## Usage
 to install
 
 ``` npm install fn-switch```
@@ -13,6 +17,7 @@ As node modules
 var fnSwitch = require('fn-switch')
 ```
 Usage for browser look in **dist** folder
+
 ```html
   <script src="node_modules/fn-switch/dist/fn-switch.min.js"></script>
 
@@ -20,7 +25,58 @@ Usage for browser look in **dist** folder
   var fnSwitch = window.fnSwitch;
 </script>
 ```
-#### Paramenters
+## Performance
+
+Most of your major overhead of codes lives down within the prototype chains. It's save to assume, the big difference here is how you implement the *switch*. There is 4 options: 
+- *statement branching(if..else)*
+- *guards(&&) and defaults(||)* 
+- *ternary operator*
+- *standard js switch*
+
+It is up to you which one suits you but the slowest is always statement branching, functional delagation combine with guards and default come close to tenary/switch plus cleaner and simplified looks.
+
+### Statement brancing implementation
+```javascript
+const _switch = c => {
+    if(c !== 'error') {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+```
+### Function Delegation with guards(&&) and defaults(||) implementation
+```javascript
+const _switch = c => {
+    let v = {error: 1};
+    return v[c] || 0;
+}
+```
+it can be simplified into
+
+```javascript
+const _switch = c => ({error: 1})[c] || 0;
+```
+
+### Tenary operator implementation
+```javascript
+const _switch = c => c !== 'error' ? 0 : 1;
+```
+
+### Switch operator implementation
+```javascript
+const _switch = c => {
+    switch(c) {
+        case 'error':
+            return 1;
+            break;
+        default:
+            return 0;
+    }
+}
+```
+
+## Parameters
 ```javascript
 fnSwitch(casses, switcher, default)
 ```
@@ -49,7 +105,8 @@ const extraFn = d => `${d[0].first} ${d[0].last}`;
 
 const fallbackFn = d => d.reduce((a, b) => a + b);
 
-const _switch = c => c !== 'error' ? 0 : 1;
+// use your own switch implementation, as a sample this use the function delagation with defaults
+const _switch = c => ({error: 1})[c] || 0;
 
 const _case = [ 
     {d: data, fn: extraFn }, 
@@ -61,7 +118,6 @@ fnSwitch(_case, _switch('someStringNotError'))
     .switch()
     .map(_case => {
     
-        //general function
         const ln = _case.d.length;
 
         //specific function base on selected case
@@ -90,7 +146,7 @@ const uniq = [...new Set(slice(arrayFromElem))];
 // return unique result, if length is more than 1 we return null
 const resOne = uniq.length === 1 ? uniq[0] : null;
 
-// the switcher
+// the switch
 const _switch = r =>
     r === 'rock' ? 0 : 
     r === 'paper' ? 1 : 
