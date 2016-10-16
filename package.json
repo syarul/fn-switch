@@ -1,6 +1,6 @@
 {
   "name": "fn-switch",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a better functional javascript replacement for if statement and switch",
   "main": "index.js",
   "scripts": {
@@ -12,9 +12,14 @@
   },
   "keywords": [
     "if statement",
+    "statement branching",
+    "ternary operator",
+    "function delagation",
     "switch",
+    "switch operator",
     "functional javascript",
     "selector",
+    "prototype chaining"
     "array"
   ],
   "author": "Shahrul Nizam Selamat",
