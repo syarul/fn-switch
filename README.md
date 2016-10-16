@@ -63,7 +63,7 @@ const _case = [
 
 const input = document.getElementById('userInput').value; 
 
-fnSwitch(_case, _switch(input)
+fnSwitch(_case, _switch(input))
     .switch()
     .map(case => {
     
