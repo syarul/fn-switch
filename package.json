@@ -1,6 +1,6 @@
 {
   "name": "fn-switch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a better functional javascript replacement for if statement and switch",
   "main": "index.js",
   "scripts": {
